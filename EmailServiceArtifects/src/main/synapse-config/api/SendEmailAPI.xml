@@ -26,7 +26,11 @@
                 <subject>{$ctx:emailSubject}</subject>
                 <messageBody>{$ctx:emailBody}</messageBody>
             </gmail.sendMail>
-            <drop/>
+            <payloadFactory media-type="json">
+                <format>"Message": "Email sent successfully"</format>
+                <args/>
+            </payloadFactory>
+            <respond/>
         </inSequence>
         <outSequence/>
         <faultSequence/>
