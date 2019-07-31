@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/sendMail" name="SendEmailAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <log level="custom">
+                <property name="Message Flow" value=".....Gmail API..."/>
+                <property expression="json-eval($.to)" name="emailTo"/>
+                <property expression="json-eval($.subject)" name="emailSubject"/>
+                <property expression="json-eval($.body)" name="emailBody"/>
+            </log>
+            <propertyGroup>
+                <property expression="json-eval($.to)" name="emailTo" scope="default" type="STRING"/>
+                <property expression="json-eval($.subject)" name="emailSubject" scope="default" type="STRING"/>
+                <property expression="json-eval($.body)" name="emailBody" scope="default" type="STRING"/>
+            </propertyGroup>
+            <gmail.init>
+                <userId>sandeepgupta7814@gmail.com</userId>
+                <accessToken>ya29.GltOB_ZONY55jAU8MkPDG-Ca8n7xJGmgooUC3dOn7tgjrxpz3i0IiybE9DxOl1WTOzrtBOIclpcy5YqE7gBaMnXOA8ymwgrBPbvufxOrDZ-O8fd7wlKbj9UpHFon</accessToken>
+                <apiUrl>https://www.googleapis.com/gmail</apiUrl>
+                <clientId>235494424896-jkn6frsfr1q5sb29ak1dgg566e1rr9vk.apps.googleusercontent.com</clientId>
+                <clientSecret>wso2:vault-lookup('gmail.client.secret')</clientSecret>
+                <refreshToken>1/a99WdOsAZr1SnYo3GSnSUzpW8QnAH2o-fiygy2M_EG8</refreshToken>
+            </gmail.init>
+            <gmail.sendMail>
+                <to>{$ctx:emailTo}</to>
+                <subject>{$ctx:emailSubject}</subject>
+                <messageBody>{$ctx:emailBody}</messageBody>
+            </gmail.sendMail>
+            <payloadFactory media-type="json">
+                <format>"Message": "Email sent successfully"</format>
+                <args/>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
