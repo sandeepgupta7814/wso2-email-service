@@ -3,7 +3,7 @@
     <resource methods="POST">
         <inSequence>
             <log level="custom">
-                <property name="Message Flow" value=".....Gmail API..."/>
+                <property name="Message Flow" value="*************Gmail API***************"/>
                 <property expression="json-eval($.to)" name="emailTo"/>
                 <property expression="json-eval($.subject)" name="emailSubject"/>
                 <property expression="json-eval($.body)" name="emailBody"/>
